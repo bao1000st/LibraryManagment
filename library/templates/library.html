@@ -1,0 +1,56 @@
+{% extends 'customerNavBar.html' %}
+{% load static %}
+{% block title %} Library Management System {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+<header class="py-5" style="background-image: url('../media/homepage.jpg');">
+  <div class="container px-4 px-lg-5 my-5">
+      <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder">Thư Viện Sách</h1>
+          <p class="lead fw-normal text-white mb-0">Chúc bạn có khoảng thời gian vui vẻ!!!</p>
+      </div>
+  </div>
+</header>
+
+<div class="container px-4 px-lg-5 mt-5">
+  <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    {% for book in books %}
+    <div class="card text-center" style="margin: 20px;">
+      <br>
+      <img class="card-img-top mx-auto" src="{{book.image.url}}" style="width:50%;height: 50%;border-radius: 10px;" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{book.name}}</h5>
+        <h6 class="card-text">Số Lượng: {{book.quantity}}</h6>
+        <p class="card-text">Tác Giả: {{book.author}}</p>
+        <p class="card-text">Nhà Xuất Bản: {{book.publisher.name}}</p> 
+        <p class="card-text">Thể Loại: {{book.bookGenresStr}}</p>
+        <br><br>
+        {% if book.available %}
+          <a href="/issue_book/{{book.id}}/"  class="btn btn-outline-primary mt-auto" style="position:absolute;left:95px;bottom: 10px;">Thêm Vào Đơn</a>
+        {% else %}
+          <a class="btn btn-outline-danger mt-auto" style="position:absolute;left:95px;bottom: 10px;">Hiện Không Có</a>
+        {% endif %}       
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  {% if alert %}
+  alert("Thêm sách vào đơn mượn thành công.")
+  document.location = "/library/"
+  {% endif %}
+  {% if maxIssuedDetail %}
+  alert("Bạn chỉ được lập đơn mượn tối đa 3 quyển sách.")
+  document.location = "/library/"
+  {% endif %}
+
+  {% if alreadyPending %}
+  alert("Bạn không thể lập đơn mượn mới, vì bạn vẫn còn đơn mượn sách chưa trả.")
+  document.location = "/library/"
+  {% endif %}
+</script>
+{% endblock %}

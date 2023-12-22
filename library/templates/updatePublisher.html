@@ -1,0 +1,44 @@
+{% extends 'adminNavBar.html' %}
+{% load static %}
+{% block title %} Library Management System {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+<div class="d-flex justify-content-center">
+    <div class="card text-center bg-dark text-light" style="align-items: center; width: 23rem; padding: 20px;margin: 100px;">
+        <form method="POST"> {% csrf_token %}
+            {% for p in publisher %}
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Tên NXB</i></label>
+                    <input type="text" class="form-control mt-2" name="name" value="{{p.name}}" placeholder="Nhập tên của nhà xuất bản" required>
+                </div>
+            </div>
+    
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Email</i></label>
+                    <input type="text" class="form-control mt-2" name="email" value="{{p.email}}" placeholder="Nhập email" required>
+                </div>
+            </div>
+    
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Liên Hệ</i></label>
+                    <input type="number" class="form-control mt-2" name="contact" value="{{p.contact}}" placeholder="Nhập số điện thoại liên hệ" required>
+                </div>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-outline-primary mt-4">Cập Nhật</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Cập nhật nhà xuất bản thành công.")
+    document.location = "/view_publishers/"
+    {% endif %}
+</script>
+{% endblock %}

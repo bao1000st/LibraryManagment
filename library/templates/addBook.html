@@ -1,0 +1,74 @@
+{% extends 'adminNavBar.html' %}
+{% load static %}
+{% block title %} Library Management System {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+<div class="d-flex justify-content-center">
+    <div class="card text-center bg-dark text-light" style="align-items: center; width: 30rem; padding: 20px;margin: 100px;">
+        <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Tên Sách</i></label>
+                    <input type="text" class="form-control mt-2" name="name" placeholder="Nhập tên sách" required>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Hình Ảnh</i></label>
+                    <input type="file" class="form-control mt-2" name="image" required>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Tác Giả</i></label>
+                    <input type="text" class="form-control mt-2" name="author" placeholder="Nhập Tên Tác Giả" required>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Nhà Xuất Bản</i></label>
+                    <input list="publishers" class="form-control mt-2" name="publisherId" required>
+                    <datalist id="publishers">
+                        {% for publisher in publishers %}
+                        <option value="{{publisher.id}}">{{publisher.name}}</option>
+                        {% endfor %}
+                    </datalist>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Thể Loại (Nhấn đề Ctrl để chọn nhiều thể loại)</i></label><br>
+                    <select class="form-control mt-2" name="bookgenreIds" multiple required>
+                        {% for bookgenre in bookgenres %}
+                        <option value="{{bookgenre.id}}">{{bookgenre.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Mô Tả</i></label>
+                    <textarea  class="form-control mt-2" name="description" placeholder="Nhập mô tả"></textarea>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Số Lượng</i></label>
+                    <input type="number" min="0" class="form-control mt-2" name="quantity" placeholder="Nhập Số Lượng">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-primary mt-4">Thêm Sách</button>
+        
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Thêm sách thành công.")
+    document.location = "/add_book/"
+    {% endif %}
+</script>
+{% endblock %}

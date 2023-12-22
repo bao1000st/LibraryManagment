@@ -1,0 +1,36 @@
+{% extends 'adminNavBar.html' %}
+{% load static %}
+{% block title %} Library Management System {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+<div class="d-flex justify-content-center">
+    <div class="card text-center bg-dark text-light" style="align-items: center; width: 23rem; padding: 20px;margin: 100px;">
+        <form method="POST"> {% csrf_token %}
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Tên Thể Loại</i></label>
+                    <input type="text" class="form-control mt-2" name="name" placeholder="Nhập tên thể loại sách" required>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="form-group col-md-12">
+                    <label><i style="font-weight: bold;">Mô Tả</i></label>
+                    <textarea  class="form-control mt-2" name="description" placeholder="Nhập mô tả"></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-outline-primary mt-4">Thêm Thể Loại Sách</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Thêm thể loại sách thành công.")
+    document.location = "/add_bookgenre/"
+    {% endif %}
+</script>
+{% endblock %}

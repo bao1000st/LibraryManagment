@@ -1,0 +1,58 @@
+{% extends 'customerNavbar.html' %}
+
+{% block title %} Edit Profile {% endblock %}
+
+{% block css %}
+{% endblock %}
+{% block body %}
+<div class="container">
+  <form method="POST"> {% csrf_token %}
+    <div class="row mt-4">
+      <div class="form-group col-md-12">
+        <label><i style="font-weight: bold;">Họ Và Tên</i></label>
+        <input type="text" class="form-control mt-2" name="fullName" placeholder="Nhập tên" value="{{user.customer.fullName}}" required>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="form-group col-md-12">
+        <label><i style="font-weight: bold;">Giới Tính</i></label><br>
+        <input type="radio" id="Nam" value="Nam" name="sex"  required>
+        <label>Nam&emsp;&emsp;</label>
+        <input type="radio" id="Nữ" value="Nữ" name="sex" required>
+        <label>Nữ</label>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="form-group col-md-12">
+        <label><i style="font-weight: bold;">Địa Chỉ</i></label>
+        <input type="text" class="form-control mt-2" name="address" value="{{user.customer.address}}" required>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="form-group col-md-6">
+            <label><i style="font-weight: bold;">Email</i></label>
+            <input type="email" class="form-control mt-2" name="email" placeholder="Nhập địa chỉ email" value="{{user.customer.email}}" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label><i style="font-weight: bold;">Liên Hệ</i></label>
+            <input type="number" class="form-control mt-2" name="contact" placeholder="Nhập số điện thoại liên hệ" value="{{user.customer.contact}}" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-outline-primary mt-4">Cập Nhật</button>
+    <br>
+    <br>
+</div>  
+
+{% endblock %}
+
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Thông tin hồ sơ được cập nhật thành công.")
+    document.location = "/profile"
+    {% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'adminNavBar.html' %}
+{% load static %}
+{% block title %} Library Management System {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <h1 class="text-center"><u>NHÀ XUẤT BẢN</u></h1>
+    <table class="table table-hover" id="example">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Liên Hệ</th>
+                <th>Sửa</th>
+                <th>Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publisher in publishers %}
+            <tr>
+                <td>{{forloop.counter}}.</td>
+                <td>{{publisher.name}}</td>
+                <td>{{publisher.email}}</td>
+                <td>{{publisher.contact}}</td>
+                <td><a href="/update_publisher/{{publisher.id}}/" class="btn btn-primary">Sửa</a></td>
+                <td><a href="/delete_publisher/{{publisher.id}}/" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa nhà xuất bản này?')">Xóa</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if error %}
+    <script> 
+        alert("Bạn không thể xóa dữ liệu này, vì nó có liên quan đến dữ liệu khác.")
+        document.location = "/view_publishers/" 
+    </script>
+    {% endif %}
+    </div>
+{% endblock %}
+
+
